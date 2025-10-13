@@ -63,6 +63,7 @@
                       {
                         frankenphp
                         order php_server before file_server
+			admin localhost:8001
                       }
                     '';
                     virtualHosts."http://localhost:8000" = {
@@ -78,7 +79,6 @@
 		    extensions = _: [
                       pkgs.nur.repos.henriquekh.parade-db
 		    ];
-		    initialScript = "CREATE USER app WITH PASSWORD 'app';";
                     initialDatabases = [
                       {
                         name = "app";
