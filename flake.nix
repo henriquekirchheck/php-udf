@@ -1,6 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
     devenv = {
       url = "github:cachix/devenv";
@@ -19,11 +23,13 @@
       flake-utils,
       devenv,
       treefmt-nix,
+      nur,
     }@inputs:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs { inherit system overlays; };
+	overlays = [ nur.overlays.default ];
         treefmt' = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
       in
       {
@@ -67,19 +73,19 @@
                       '';
                     };
                   };
-                  mysql = {
+                  postgres = {
                     enable = true;
-                    ensureUsers = [
-                      {
-                        name = "admin";
-                        password = "admin";
-                        ensurePermissions."*.*" = "ALL PRIVILEGES";
-                      }
-                    ];
+		    extensions = _: [
+                      pkgs.nur.repos.henriquekh.parade-db
+		    ];
+		    initialScript = "CREATE USER app WITH PASSWORD 'app';";
                     initialDatabases = [
                       {
                         name = "app";
                         schema = ./src/schema.sql;
+			user = "app";
+			pass = "app";
+			initialSQL = "CREATE EXTENSION IF NOT EXISTS pg_search;";
                       }
                     ];
                   };
