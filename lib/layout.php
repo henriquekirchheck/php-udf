@@ -4,7 +4,7 @@ if (!array_key_exists('title', get_defined_vars()))
     exit('No $title set in page. Make sure it is set before the require_once.');
 
 if (!array_key_exists('layout', get_defined_vars()))
-    $layout = realpath('../src/layout.php');
+    $layout = realpath(__DIR__.'/../src/layout.php');
 
 header('Vary: HX-Request, HX-Boosted, X-Requested-With');
 if (isset($_SERVER['HTTP_HX_REQUEST']) && 'true' === $_SERVER['HTTP_HX_REQUEST'])

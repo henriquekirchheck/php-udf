@@ -61,7 +61,7 @@
                         root * ${config.devenv.root}/public
                         encode zstd br gzip
                         php_server {
-                          try_files {path}.php {path}/index.php =404
+                          try_files {path} {path}/index.php =404
                         }
                       '';
                     };
