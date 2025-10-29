@@ -12,7 +12,6 @@
 </head>
 
 <body>
-  <header></header>
   <main id="main" class="container" hx-target="this" hx-swap="innerHTML" hx-boost="true">
     <?php echo $content; ?>
   </main>

@@ -1,56 +1,21 @@
-<?php $title = 'Home'; ?>
-<?php require_once '../lib/layout.php'; ?>
-<?php require_once '../src/models/Note.php'; ?>
-<?php require_once '../src/db.php'; ?>
+<?php require __DIR__ . "/vendor/autoload.php";
 
-<?php
-$note_model = new Note\Model($db);
+use Rammewerk\Router\Router;
 
-if (isset($_POST["name"])) {
-  $notes = $note_model->search($_POST["name"]);
-} else {
-  $notes = $note_model->getAll();
-}
+// Setup router
+$container = static fn(string $class) => new $class();
+$router = new Router($container);
 
-$fmt = new IntlDateFormatter("pt_BR");
-?>
+// // Register entry points
+// $router->entryPoint('/api/health', ApiController::class);
+// $router->entryPoint('/api/users', UserController::class);
+// $router->entryPoint('/api/users/*', UserController::class);
 
-<article>
-  <header>Notas</header>
-  <form action="/" method="post">
-    <fieldset role="group">
-      <input type="text" placeholder="Pesquise por suas notas..." aria-label="Nome" name="name"
-        hx-post="/api/search"
-        hx-trigger="keyup changed delay:500ms, search"
-        hx-target="#results">
-      <input type="submit" value="Pesquisar" class="contrast">
-      <a role="button" href="/add">Adicionar</a>
-    </fieldset>
-  </form>
-  <table class="striped">
-    <thead>
-      <tr>
-        <th scope="col">Nota</th>
-        <th scope="col">Titulo</th>
-        <th scope="col">Ultima atualização</th>
-        <th scope="col">Ações</th>
-      </tr>
-    </thead>
-    <tbody id="results">
-      <?php foreach ($notes as $note) { ?>
-        <tr>
-          <td><?= $note->id ?></td>
-          <td><?= $note->title ?></td>
-          <td><?= $fmt->format(date_create_immutable($note->updated_at)) ?></td>
-          <td>
-            <ul>
-              <li><a href="/modify/?id=<?= $note->id ?>">Mod</a></li>
-              <li><a href="/delete/?id=<?= $note->id ?>">Del</a></li>
-              <li><a href="/view/?id=<?= $note->id ?>">View</a></li>
-            </ul>
-          </td>
-        </tr>
-      <?php } ?>
-    </tbody>
-  </table>
-</article>
+// // Group with shared middleware
+// $router->group(function(Router $r) {
+//     $r->entryPoint('/admin/users', AdminUserController::class);
+//     $r->entryPoint('/admin/settings', AdminSettingsController::class);
+// })->middleware([AuthMiddleware::class, AdminMiddleware::class]);
+
+// Dispatch
+$response = $router->dispatch();

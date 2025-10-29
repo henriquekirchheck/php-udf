@@ -60,9 +60,7 @@
                       extraConfig = ''
                         root * ${config.devenv.root}/public
                         encode zstd br gzip
-                        php_server {
-                          try_files {path} {path}/index.php =404
-                        }
+                        php_server
                       '';
                     };
                   };

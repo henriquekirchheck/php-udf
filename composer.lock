@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "709547b4331b2bd7543ad4448ae28f63",
+    "content-hash": "e6247c4032ba9c589f3c0d227806458f",
     "packages": [
         {
             "name": "league/uri",
@@ -354,6 +354,64 @@
                 "source": "https://github.com/php-fig/http-message/tree/2.0"
             },
             "time": "2023-04-04T09:54:51+00:00"
+        },
+        {
+            "name": "rammewerk/router",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rammewerk/router.git",
+                "reference": "86db0eb1d990dee99a4c4c57043fa04a9ae783f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rammewerk/router/zipball/86db0eb1d990dee99a4c4c57043fa04a9ae783f0",
+                "reference": "86db0eb1d990dee99a4c4c57043fa04a9ae783f0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.4"
+            },
+            "require-dev": {
+                "nyholm/psr7": "^1.8",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^11.5",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^2.0",
+                "psr/http-server-handler": "^1.0",
+                "psr/http-server-middleware": "^1.0",
+                "rammewerk/container": "^1.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rammewerk\\Router\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "tests/",
+                    ".idea/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kristoffer Follestad",
+                    "email": "kristoffer@rammewerk.com"
+                }
+            ],
+            "description": "Simple router for PHP",
+            "homepage": "https://rammewerk.com",
+            "keywords": [
+                "router"
+            ],
+            "support": {
+                "issues": "https://github.com/rammewerk/router/issues",
+                "source": "https://github.com/rammewerk/router/tree/1.0.0"
+            },
+            "time": "2025-09-28T10:10:53+00:00"
         },
         {
             "name": "symfony/html-sanitizer",
